@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><meta name=renderer content=webkit><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>小白问卷(北京傲承瑞盛教育)</title><link rel="shortcut icon" href=./resource/img/logo.jpg><script src=./static/js/cookie.js></script><script src=https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js></script><script>function getUrlParam(keyName) {
+      var search = document.location.search;
+      var pattern = new RegExp("[?&]" + keyName + "\=([^&]+)", "g");
+      var matcher = pattern.exec(search);
+      var items = null;
+      if (null != matcher) {
+        try {
+          items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch (e) {
+          try {
+            items = decodeURIComponent(matcher[1]);
+          } catch (e) {
+            items = matcher[1];
+          }
+        }
+      }
+      return items;
+    };</script></head><body style="background-color: #EBEEF5"><div id=tips style=margin:auto;font-size:20px></div></body><script>var msgHtml = "";
+  var startHtml = '<div style="color:#E6A23C;text-align:center;margin-top:20px">';
+  var endHtml = '</div>';
+  var tipsId = getUrlParam("tipsId")
+  var strTips = Cookie.Get("tipsCookie_" + tipsId)
+ if(strTips==null||strTips==undefined){
+   msgHtml = startHtml + "数据已经失效了"+ endHtml;
+ }else {
+   var jsonTips = JSON.parse(strTips);
+   //$(function (){})
+   if (jsonTips.code == 'wx10' || jsonTips.code == 'wx11') {
+     msgHtml += '<div><img src="./resource/img/logo.jpg" class="imgLogo"/></div>';
+     msgHtml += '<div class="desc01">该网页由小白问卷开发，向其提供以下权限</div>';
+     msgHtml += '<div style="clear: both"></div>';
+     msgHtml += '<div class="desc02">获取你的公开信息（昵称，头像等）</div>';
+     msgHtml += '<div class="btnDiv"><button id="wxOk" class="submit" onclick="loginWx()">确认登录</button>';
+     if (jsonTips.code == 'wx11') {
+       msgHtml += '<button class="skip" onclick="skipWx()">跳过</button></div>';
+     }
+   } else {
+     msgHtml = startHtml + jsonTips.msg + endHtml;
+   }
+ }
+  document.getElementById("tips").innerHTML = msgHtml
+  //$("#tips").html(msgHtml)
+
+  function loginWx() {
+    var surveyId = jsonTips.surveyId;
+
+    if (surveyId == null || surveyId == undefined) {
+      alert('请求数据有错误！')
+      return;
+    }
+
+    var submitBtn = document.getElementById("wxOk");
+    submitBtn.setAttribute("disabled", "disabled");
+    submitBtn.setAttribute("class", "submitDisabled");
+    window.location.href = 'wx/wxPageAuthRedirect?surveyId=' + surveyId
+  }</script><style>* {
+    margin: 0;
+    padding: 0;
+  }
+
+  .desc01 {
+    margin-top: -35px;
+    text-align: center;
+    font-size: 14px;
+    color: #9c9c9c;
+  }
+
+  .desc02 {
+    margin-top: 25px;
+    margin-left: 15px;
+    font-size: 13px;
+    color: #808080;
+  }
+
+  .imgLogo {
+    width: 100%;
+    height: 200px;
+  }
+
+  .btnDiv {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  button {
+    width: 130px;
+    height: 45px;
+    border-radius: 3px;
+    color: white;
+    font-size: 20px;
+  }
+
+  .submitDisabled {
+    cursor: not-allowed;
+    background-color: #bcbcbc;
+    border: 1px #bcbcbc solid;
+  }
+
+  .submit {
+    cursor: pointer;
+    background-color: #409EFF;
+    border: 1px #409EFF solid;
+  }
+
+  .skip {
+    cursor: hand;
+    margin-left: 20px;
+    background-color: #67C23A;
+    border: #67C23A;
+  }</style></html>

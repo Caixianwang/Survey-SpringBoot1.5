@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>Insert title here</title>  
+
+</head>  
+<style> 
+table td,table th{border:1px solid blue} 
+
+</style> 
+<body>  
+	<h1>404Error</h1>
+    <table width="400" border="0" cellspacing="0" cellpadding="0"> 
+    <tr>
+        <th>error</th>
+        <th>timestamp</th>
+        <th>status</th>
+        <th>message</th>
+        <th>path</th>
+        <th>exception</th>
+        <th>trace</th>
+    </tr>
+    <tr>
+        <td th:text="${error}">error</td>
+        <td th:text="${timestamp}">timestamp</td>
+        <td th:text="${status}">status</td>
+        <td th:text="${message}">message</td>
+        <td th:text="${path}">path</td>
+        <td th:text="${exception}">exception</td>
+        <td th:text="${trace}">trace</td>
+    </tr>
+</table>
+       
+</body> 
+
+</html> 
